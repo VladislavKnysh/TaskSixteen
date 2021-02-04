@@ -1,0 +1,8 @@
+# Default ignored files
+.idea
+*.iml
+\out
+\target
+/workspace.xml
+\test
+\resources
