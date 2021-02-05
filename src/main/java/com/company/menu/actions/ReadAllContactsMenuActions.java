@@ -9,7 +9,7 @@ public class ReadAllContactsMenuActions implements MenuActions{
 
     @Override
     public void doAction(ContactsService contactsService) {
-        System.out.println(contactsService.getAllUsers());
+        System.out.println(contactsService.getAllContacts());
     }
 
     @Override

@@ -11,14 +11,14 @@ import com.company.service.HttpPlusJsonContactsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-import java.net.http.HttpClient;
+
 
 
 public class Main {
-    private static HttpClient httpClient = HttpClient.newBuilder().build();
-    private static ObjectMapper objectMapper = new ObjectMapper();
+
+
     public static void main(String[] args) {
-        ContactsService contactsService = new HttpPlusJsonContactsService(objectMapper, httpClient);
+        ContactsService contactsService = new HttpPlusJsonContactsService();
         StartScreen startScreen = new StartScreen(contactsService);
         startScreen.start();
 
