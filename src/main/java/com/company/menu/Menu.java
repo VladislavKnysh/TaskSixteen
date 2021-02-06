@@ -1,29 +1,27 @@
 package com.company.menu;
 
 
-import com.company.menu.actions.ReadAllUsersMenuActions;
 import com.company.service.ContactsService;
 import com.company.menu.actions.MenuActions;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.net.http.HttpClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @Data
 @AllArgsConstructor
 public class Menu {
-    private MenuActions[] actions;
+    private List<MenuActions> actions;
     private final Scanner scanner;
     private final ContactsService contactsService;
 
 
-
-
     public void run() {
+        ArrayList<MenuActions> actionsToOperate = getVisibleOptions();
         while (true) {
-            showMenu();
+            showMenu(actionsToOperate);
             int choice = getMenuIndexFromUser();
             if (!validateMenuIndex(choice)) {
                 System.out.println("Invalid input");
@@ -31,14 +29,14 @@ public class Menu {
             }
 
 
-            actions[choice].doAction(contactsService);
-            if (actions[choice].closeAfter()) break;
+            actionsToOperate.get(choice).doAction(contactsService);
+            if (actionsToOperate.get(choice).closeAfter()) break;
         }
     }
 
 
     private boolean validateMenuIndex(int choice) {
-        return choice >= 0 && choice < actions.length;
+        return choice >= 0 && choice < actions.size();
     }
 
     private int getMenuIndexFromUser() {
@@ -49,13 +47,25 @@ public class Menu {
     }
 
 
-    private void showMenu() {
-        for (int i = 0; i < actions.length; i++) {
+    private void showMenu(List<MenuActions> actions) {
+        for (int i = 0; i < actions.size(); i++) {
 
-            System.out.printf("%d - %s\n", (i + 1), actions[i].getName());
+            System.out.printf("%d - %s\n", (i + 1), actions.get(i).getName());
         }
 
     }
 
+    private ArrayList<MenuActions> getVisibleOptions() {
+        ArrayList<MenuActions> visibleList = new ArrayList<>();
+        for (MenuActions m : actions) {
+            if (m.isVisible(contactsService)) {
+                visibleList.add(m);
+            }
+
+        }
+
+        return visibleList;
+
+    }
 }
 

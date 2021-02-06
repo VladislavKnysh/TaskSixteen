@@ -56,4 +56,8 @@ public class SearchContactMenuAction implements MenuActions {
     }
 
 
+    @Override
+    public boolean isVisible(ContactsService contactsService) {
+        return true;
+    }
 }

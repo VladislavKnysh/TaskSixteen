@@ -1,29 +1,28 @@
 package com.company.menu.actions;
 
-import com.company.menu.actions.MenuActions;
-import com.company.service.ContactsService;
-import lombok.RequiredArgsConstructor;
 
+import com.company.service.ContactsService;
 
 import java.util.Scanner;
-@RequiredArgsConstructor
-public class ReadAllUsersMenuActions implements MenuActions {
+
+public class ExportContactsInFileMenuActions implements MenuActions, Visible {
     private Scanner scanner = new Scanner(System.in);
 
-
+    @Override
     public void doAction(ContactsService contactsService) {
         try {
-            System.out.println(contactsService.getAllUsers());
+            contactsService.printToFile();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
     public String getName() {
-        return "Read all Users";
+        return "Export contacts to file";
     }
 
-
+    @Override
     public boolean closeAfter() {
         System.out.println("Do you want to close program?(1 - yes,2 - no)");
 
@@ -41,6 +40,6 @@ public class ReadAllUsersMenuActions implements MenuActions {
 
     @Override
     public boolean isVisible(ContactsService contactsService) {
-        return contactsService.getServiceType().equals(ContactsService.ServiceType.HTTP_PLUS_JSON);
+        return !contactsService.getServiceType().equals(ContactsService.ServiceType.HTTP_PLUS_JSON);
     }
 }

@@ -1,6 +1,8 @@
 package com.company.service;
 
 import com.company.dto.*;
+
+import com.company.service.helper.HttpClientHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -10,15 +12,17 @@ import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-public class HttpPlusJsonContactsService implements ContactsService {
+public class HttpPlusJsonContactsService extends ContactsService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClientHelper httpClientHelper = new HttpClientHelper();
     private String token;
 
+    private String baseUri = System.getProperty("api.base-uri");
+
     public String register(RegisterRequest registerRequest) {
         try {
             String req = objectMapper.writeValueAsString(registerRequest);
-            String uri = "https://mag-contacts-api.herokuapp.com/register";
+            String uri =baseUri+ "/register";
             HttpResponse<String> response = httpClientHelper.sendPostRequest
                     (uri, req);
             RegisterResponse registerResponse = objectMapper.readValue(response.body(),
@@ -32,10 +36,14 @@ public class HttpPlusJsonContactsService implements ContactsService {
 
     }
 
+    public ServiceType getServiceType() {
+        return ServiceType.HTTP_PLUS_JSON;
+    }
+
     public LoginResponse login(LoginRequest loginRequest) {
         try {
             String req = objectMapper.writeValueAsString(loginRequest);
-            String uri = "https://mag-contacts-api.herokuapp.com/login";
+            String uri = baseUri+ "/login";
             HttpResponse<String> response = httpClientHelper.sendPostRequest(uri, req);
             LoginResponse loginResponse = objectMapper.readValue(response.body(),
                     LoginResponse.class);
@@ -55,10 +63,10 @@ public class HttpPlusJsonContactsService implements ContactsService {
         try {
             if (Objects.nonNull(token)) {
                 response = httpClientHelper.sendTokenGetRequest
-                        ("https://mag-contacts-api.herokuapp.com/users2", token);
+                        (baseUri+ "/users2", token);
             } else {
                 response = httpClientHelper.sendGetRequest
-                        ("https://mag-contacts-api.herokuapp.com/users2");
+                        (baseUri+ "/users2");
             }
             UserResponse userResponse = objectMapper.readValue(response.body(),
                     UserResponse.class);
@@ -73,7 +81,7 @@ public class HttpPlusJsonContactsService implements ContactsService {
     public void add(Contact contact) {
         try {
             String req = objectMapper.writeValueAsString(contact);
-            String uri = "https://mag-contacts-api.herokuapp.com/contacts/add";
+            String uri = baseUri+ "/contacts/add";
             HttpResponse<String> response = httpClientHelper.sendTokenPostRequest(uri, req, token);
             ContactResponse contactResponse = objectMapper.readValue(response.body(),
                     ContactResponse.class);
@@ -88,7 +96,7 @@ public class HttpPlusJsonContactsService implements ContactsService {
 
         try {
             String req = objectMapper.writeValueAsString(new ContactRequest(string, type));
-            String uri = "https://mag-contacts-api.herokuapp.com/contacts/find";
+            String uri = baseUri+ "/contacts/find";
             HttpResponse<String> response = httpClientHelper.sendTokenPostRequest(uri, req, token);
             ContactResponse contactResponse = objectMapper.readValue(response.body(),
                     ContactResponse.class);
@@ -106,7 +114,7 @@ public class HttpPlusJsonContactsService implements ContactsService {
 
         try {
             HttpResponse<String> response = httpClientHelper.sendTokenGetRequest
-                    ("https://mag-contacts-api.herokuapp.com/contacts", token);
+                    (baseUri+ "/contacts", token);
             ContactResponse contactResponse = objectMapper.readValue(response.body(),
                     ContactResponse.class);
             return contactResponse.getContacts();
@@ -120,4 +128,13 @@ public class HttpPlusJsonContactsService implements ContactsService {
         token = null;
     }
 
+    @Override
+    public void remove(int index) throws IllegalAccessException {
+        throw new IllegalAccessException();
+    }
+
+    @Override
+    public void printToFile() throws IllegalAccessException {
+        throw new IllegalAccessException();
+    }
 }

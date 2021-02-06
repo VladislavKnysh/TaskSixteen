@@ -58,5 +58,10 @@ public class AddContactMenuAction implements MenuActions {
                 return true;
         }
     }
+
+    @Override
+    public boolean isVisible(ContactsService contactsService) {
+        return true;
+    }
 }
 
