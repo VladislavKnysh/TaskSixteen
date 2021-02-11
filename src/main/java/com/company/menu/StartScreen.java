@@ -78,7 +78,7 @@ public class StartScreen {
 
     private boolean register() {
         try {
-            if (Objects.nonNull(contactsService.register(askForRegister()))) {
+            if (Objects.nonNull(contactsService.register(askForRegister()).getStatus())) {
                 return true;
             } else return false;
         } catch (IllegalAccessException e) {

@@ -18,7 +18,7 @@ public abstract class ContactsService {
 
     public abstract LoginResponse login(LoginRequest loginRequest) throws IllegalAccessException;
 
-    public abstract String register(RegisterRequest registerRequest) throws IllegalAccessException;
+    public abstract RegisterResponse register(RegisterRequest registerRequest) throws IllegalAccessException;
 
     public abstract void remove(int index) throws IllegalAccessException;
 

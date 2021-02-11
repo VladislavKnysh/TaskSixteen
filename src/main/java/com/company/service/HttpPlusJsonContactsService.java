@@ -19,7 +19,7 @@ public class HttpPlusJsonContactsService extends ContactsService {
 
     private String baseUri = System.getProperty("api.base-uri");
 
-    public String register(RegisterRequest registerRequest) {
+    public RegisterResponse register(RegisterRequest registerRequest) {
         try {
             String req = objectMapper.writeValueAsString(registerRequest);
             String uri =baseUri+ "/register";
@@ -27,7 +27,7 @@ public class HttpPlusJsonContactsService extends ContactsService {
                     (uri, req);
             RegisterResponse registerResponse = objectMapper.readValue(response.body(),
                     RegisterResponse.class);
-            return registerResponse.toString();
+            return registerResponse;
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }

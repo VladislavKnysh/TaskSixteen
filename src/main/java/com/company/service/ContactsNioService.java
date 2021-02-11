@@ -136,7 +136,7 @@ public class ContactsNioService extends ContactsService {
     }
 
     @Override
-    public String register(RegisterRequest registerRequest) throws IllegalAccessException {
+    public RegisterResponse register(RegisterRequest registerRequest) throws IllegalAccessException {
         throw new IllegalAccessException();
     }
 }
