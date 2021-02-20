@@ -1,14 +1,16 @@
-package com.company.service;
+package com.company.service.implementation;
 
 
+import com.company.annotstions.CreateIfMode;
 import com.company.dto.*;
+import com.company.service.ContactsService;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@CreateIfMode("memory")
 public class InMemoryContactsService extends ContactsService {
     private List<Contact> contactsList;
 

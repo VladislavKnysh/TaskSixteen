@@ -1,6 +1,8 @@
-package com.company.service;
+package com.company.service.implementation;
 
+import com.company.annotstions.CreateIfMode;
 import com.company.dto.*;
+import com.company.service.ContactsService;
 import com.company.service.helper.ContactParser;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.regex.Pattern;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@CreateIfMode("file")
 public class ContactsNioService extends ContactsService {
     private Path path = Paths.get(System.getProperty("file.path"));
 

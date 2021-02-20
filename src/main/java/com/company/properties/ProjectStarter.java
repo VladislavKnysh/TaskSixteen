@@ -10,6 +10,6 @@ public class ProjectStarter {
     private ModeHandler mh = new ModeHandler();
     public ContactsService startProject(){
         ph.setProfile();
-        return mh.chooseMode();
+        return mh.getService(ContactsService.class);
     }
 }

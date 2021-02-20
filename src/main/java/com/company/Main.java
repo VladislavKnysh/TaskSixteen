@@ -2,9 +2,7 @@ package com.company;
 
 
 import com.company.menu.StartScreen;
-import com.company.properties.ProfileHandler;
 import com.company.properties.ProjectStarter;
-import com.company.properties.PropertiesManager;
 import com.company.service.ContactsService;
 
 

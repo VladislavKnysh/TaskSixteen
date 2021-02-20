@@ -1,7 +1,9 @@
-package com.company.service;
+package com.company.service.implementation;
 
+import com.company.annotstions.CreateIfMode;
 import com.company.dto.*;
 
+import com.company.service.ContactsService;
 import com.company.service.helper.HttpClientHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
+@CreateIfMode("api")
 public class HttpPlusJsonContactsService extends ContactsService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClientHelper httpClientHelper = new HttpClientHelper();
