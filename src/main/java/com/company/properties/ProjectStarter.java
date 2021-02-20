@@ -1,6 +1,7 @@
 package com.company.properties;
 
 import com.company.service.ContactsService;
+import com.company.service.factory.ContactsServiceFactory;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,8 +9,9 @@ import lombok.NoArgsConstructor;
 public class ProjectStarter {
     private ProfileHandler ph = new ProfileHandler();
     private ModeHandler mh = new ModeHandler();
+    private ContactsServiceFactory contactsServiceFactory = new ContactsServiceFactory();
     public ContactsService startProject(){
         ph.setProfile();
-        return mh.getService(ContactsService.class);
+        return contactsServiceFactory.createPropertyService(mh.chooseMode());
     }
 }

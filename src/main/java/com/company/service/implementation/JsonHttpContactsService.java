@@ -4,29 +4,34 @@ import com.company.annotstions.CreateIfMode;
 import com.company.dto.*;
 
 import com.company.service.ContactsService;
-import com.company.service.helper.HttpClientHelper;
+import com.company.service.helper.http.HttpRequestFactory;
+import com.company.service.helper.http.JsonHttpRequestFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Objects;
 
-@RequiredArgsConstructor
+
+@NoArgsConstructor
+@Data
 @CreateIfMode("api")
-public class HttpPlusJsonContactsService extends ContactsService {
+public class JsonHttpContactsService implements ContactsService {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final HttpClientHelper httpClientHelper = new HttpClientHelper();
+    private final HttpRequestFactory jsonRequestFactory = new JsonHttpRequestFactory();
     private String token;
 
-    private String baseUri = System.getProperty("api.base-uri");
+    private String  baseUri = System.getProperty("api.base-uri");
 
     public RegisterResponse register(RegisterRequest registerRequest) {
         try {
             String req = objectMapper.writeValueAsString(registerRequest);
             String uri =baseUri+ "/register";
-            HttpResponse<String> response = httpClientHelper.sendPostRequest
+            HttpResponse<String> response = jsonRequestFactory.sendPostRequest
                     (uri, req);
             RegisterResponse registerResponse = objectMapper.readValue(response.body(),
                     RegisterResponse.class);
@@ -47,7 +52,7 @@ public class HttpPlusJsonContactsService extends ContactsService {
         try {
             String req = objectMapper.writeValueAsString(loginRequest);
             String uri = baseUri+ "/login";
-            HttpResponse<String> response = httpClientHelper.sendPostRequest(uri, req);
+            HttpResponse<String> response = jsonRequestFactory.sendPostRequest(uri, req);
             LoginResponse loginResponse = objectMapper.readValue(response.body(),
                     LoginResponse.class);
             token = loginResponse.getToken();
@@ -65,10 +70,10 @@ public class HttpPlusJsonContactsService extends ContactsService {
         HttpResponse<String> response;
         try {
             if (Objects.nonNull(token)) {
-                response = httpClientHelper.sendTokenGetRequest
+                response = jsonRequestFactory.sendTokenGetRequest
                         (baseUri+ "/users2", token);
             } else {
-                response = httpClientHelper.sendGetRequest
+                response = jsonRequestFactory.sendGetRequest
                         (baseUri+ "/users2");
             }
             UserResponse userResponse = objectMapper.readValue(response.body(),
@@ -85,7 +90,7 @@ public class HttpPlusJsonContactsService extends ContactsService {
         try {
             String req = objectMapper.writeValueAsString(contact);
             String uri = baseUri+ "/contacts/add";
-            HttpResponse<String> response = httpClientHelper.sendTokenPostRequest(uri, req, token);
+            HttpResponse<String> response = jsonRequestFactory.sendTokenPostRequest(uri, req, token);
             ContactResponse contactResponse = objectMapper.readValue(response.body(),
                     ContactResponse.class);
             System.out.println(contactResponse.getStatus());
@@ -100,7 +105,7 @@ public class HttpPlusJsonContactsService extends ContactsService {
         try {
             String req = objectMapper.writeValueAsString(new ContactRequest(string, type));
             String uri = baseUri+ "/contacts/find";
-            HttpResponse<String> response = httpClientHelper.sendTokenPostRequest(uri, req, token);
+            HttpResponse<String> response = jsonRequestFactory.sendTokenPostRequest(uri, req, token);
             ContactResponse contactResponse = objectMapper.readValue(response.body(),
                     ContactResponse.class);
             return contactResponse.getContacts();
@@ -116,7 +121,7 @@ public class HttpPlusJsonContactsService extends ContactsService {
     public List<Contact> getAllContacts() {
 
         try {
-            HttpResponse<String> response = httpClientHelper.sendTokenGetRequest
+            HttpResponse<String> response = jsonRequestFactory.sendTokenGetRequest
                     (baseUri+ "/contacts", token);
             ContactResponse contactResponse = objectMapper.readValue(response.body(),
                     ContactResponse.class);
@@ -141,3 +146,6 @@ public class HttpPlusJsonContactsService extends ContactsService {
         throw new IllegalAccessException();
     }
 }
+
+
+

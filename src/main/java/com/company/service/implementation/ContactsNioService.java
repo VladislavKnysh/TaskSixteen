@@ -5,6 +5,7 @@ import com.company.dto.*;
 import com.company.service.ContactsService;
 import com.company.service.helper.ContactParser;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.File;
@@ -20,8 +21,9 @@ import java.util.regex.Pattern;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @CreateIfMode("file")
-public class ContactsNioService extends ContactsService {
+public class ContactsNioService implements ContactsService {
     private Path path = Paths.get(System.getProperty("file.path"));
 
     public ServiceType getServiceType() {
@@ -31,18 +33,19 @@ public class ContactsNioService extends ContactsService {
 
     @Override
     public List<Contact> getAllContacts() {
+        List<Contact> contactsList = new ArrayList<>();
         try {
             List<String> lines = Files.readAllLines(path);
             ContactParser contactParser = new ContactParser();
-            List<Contact> contactsList = new ArrayList<>();
+
             for (String line : lines) {
                 contactsList.add(contactParser.parse(line));
             }
-            return contactsList;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return contactsList;
     }
 
 

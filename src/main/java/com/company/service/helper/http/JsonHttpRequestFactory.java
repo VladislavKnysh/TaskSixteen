@@ -1,4 +1,4 @@
-package com.company.service.helper;
+package com.company.service.helper.http;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Data
-public class HttpClientHelper {
+public class JsonHttpRequestFactory implements HttpRequestFactory{
     private final HttpClient httpClient = HttpClient.newBuilder().build();
 
     public HttpResponse<String> sendTokenGetRequest(String uri, String token)
