@@ -3,6 +3,7 @@ package com.company.service.implementation;
 import com.company.annotstions.CreateIfMode;
 import com.company.dto.*;
 
+import com.company.exceptions.IllegalContactsServiceMethodAccessException;
 import com.company.service.ContactsService;
 import com.company.service.helper.http.HttpRequestFactory;
 import com.company.service.helper.http.JsonHttpRequestFactory;
@@ -137,13 +138,13 @@ public class JsonHttpContactsService implements ContactsService {
     }
 
     @Override
-    public void remove(int index) throws IllegalAccessException {
-        throw new IllegalAccessException();
+    public void remove(int index) throws IllegalContactsServiceMethodAccessException {
+        throw new IllegalContactsServiceMethodAccessException();
     }
 
     @Override
-    public void printToFile() throws IllegalAccessException {
-        throw new IllegalAccessException();
+    public void printToFile() throws IllegalContactsServiceMethodAccessException {
+        throw new IllegalContactsServiceMethodAccessException();
     }
 }
 

@@ -3,6 +3,7 @@ package com.company.service.implementation;
 
 import com.company.annotstions.CreateIfMode;
 import com.company.dto.*;
+import com.company.exceptions.IllegalContactsServiceMethodAccessException;
 import com.company.service.ContactsService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -80,23 +81,23 @@ public class InMemoryContactsService implements ContactsService {
     }
 
     @Override
-    public List<User> getAllUsers() throws IllegalAccessException {
-        throw new IllegalAccessException();
+    public List<User> getAllUsers() throws IllegalContactsServiceMethodAccessException {
+        throw new IllegalContactsServiceMethodAccessException();
 
     }
 
     @Override
-    public void logOut() throws IllegalAccessException {
-        throw new IllegalAccessException();
+    public void logOut() throws IllegalContactsServiceMethodAccessException {
+        throw new IllegalContactsServiceMethodAccessException();
     }
 
     @Override
-    public LoginResponse login(LoginRequest loginRequest) throws IllegalAccessException {
-        throw new IllegalAccessException();
+    public LoginResponse login(LoginRequest loginRequest) throws IllegalContactsServiceMethodAccessException {
+        throw new IllegalContactsServiceMethodAccessException();
     }
 
     @Override
-    public RegisterResponse register(RegisterRequest registerRequest) throws IllegalAccessException {
-        throw new IllegalAccessException();
+    public RegisterResponse register(RegisterRequest registerRequest) throws IllegalContactsServiceMethodAccessException {
+        throw new IllegalContactsServiceMethodAccessException();
     }
 }

@@ -1,6 +1,7 @@
 package com.company.menu.actions;
 
 
+import com.company.exceptions.IllegalContactsServiceMethodAccessException;
 import com.company.service.ContactsService;
 
 import java.util.Scanner;
@@ -12,7 +13,7 @@ public class ExportContactsInFileMenuActions implements MenuActions, Visible {
     public void doAction(ContactsService contactsService) {
         try {
             contactsService.printToFile();
-        } catch (IllegalAccessException e) {
+        } catch (IllegalContactsServiceMethodAccessException e) {
             e.printStackTrace();
         }
     }

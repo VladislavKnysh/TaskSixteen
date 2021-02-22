@@ -1,6 +1,7 @@
 package com.company.service;
 
 import com.company.dto.*;
+import com.company.exceptions.IllegalContactsServiceMethodAccessException;
 
 import java.util.List;
 
@@ -12,17 +13,17 @@ public interface ContactsService {
 
     List<Contact> getAllContacts();
 
-    List<User> getAllUsers() throws IllegalAccessException;
+    List<User> getAllUsers() throws IllegalContactsServiceMethodAccessException;
 
-    void logOut() throws IllegalAccessException;
+    void logOut() throws IllegalContactsServiceMethodAccessException;
 
-    LoginResponse login(LoginRequest loginRequest) throws IllegalAccessException;
+    LoginResponse login(LoginRequest loginRequest) throws IllegalContactsServiceMethodAccessException;
 
-    RegisterResponse register(RegisterRequest registerRequest) throws IllegalAccessException;
+    RegisterResponse register(RegisterRequest registerRequest) throws IllegalContactsServiceMethodAccessException;
 
-    void remove(int index) throws IllegalAccessException;
+    void remove(int index) throws IllegalContactsServiceMethodAccessException;
 
-    void printToFile() throws IllegalAccessException;
+    void printToFile() throws IllegalContactsServiceMethodAccessException;
 
     ServiceType getServiceType();
 

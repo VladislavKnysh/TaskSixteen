@@ -2,6 +2,7 @@ package com.company.menu.actions;
 
 
 
+import com.company.exceptions.IllegalContactsServiceMethodAccessException;
 import com.company.service.ContactsService;
 
 import java.util.Scanner;
@@ -27,7 +28,7 @@ public class RemoveContactsMenuActions implements MenuActions {
             contactsService.remove(index);
         }
 
-    } catch (IllegalAccessException e) {
+    } catch (IllegalContactsServiceMethodAccessException e) {
             e.printStackTrace();
         }
     }

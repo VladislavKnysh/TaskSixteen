@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ProfileHandler {
 
 
-    public void setProfile() {
+    public void determineProfile(boolean workFromProp) {
         AppProperties appProperties = new AppProperties();
         PropertiesManager propertiesManager = new PropertiesManager();
         String profile = propertiesManager.getSystemProp(FileNameProperty.class).getProfile();
@@ -26,10 +26,11 @@ public class ProfileHandler {
 
         System.setProperty("api.base-uri", appProperties.getUri());
         System.setProperty("file.path", appProperties.getFileName());
-        System.setProperty("app.service.workmode", appProperties.getWorkMode());
+        if (workFromProp) {
+            System.setProperty("app.service.workmode", appProperties.getWorkMode());
+        }
     }
 
 
-
-    }
+}
 

@@ -1,5 +1,6 @@
 package com.company.menu.actions;
 
+import com.company.exceptions.IllegalContactsServiceMethodAccessException;
 import com.company.menu.actions.MenuActions;
 import com.company.service.ContactsService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ public class ReadAllUsersMenuActions implements MenuActions {
     public void doAction(ContactsService contactsService) {
         try {
             System.out.println(contactsService.getAllUsers());
-        } catch (IllegalAccessException e) {
+        } catch (IllegalContactsServiceMethodAccessException e) {
             e.printStackTrace();
         }
     }

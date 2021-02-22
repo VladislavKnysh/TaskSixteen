@@ -1,5 +1,6 @@
 package com.company.menu.actions;
 
+import com.company.exceptions.IllegalContactsServiceMethodAccessException;
 import com.company.service.ContactsService;
 
 
@@ -12,7 +13,7 @@ public class LogOutMenuAction implements MenuActions {
     public void doAction(ContactsService contactService) {
         try {
             contactService.logOut();
-        } catch (IllegalAccessException e) {
+        } catch (IllegalContactsServiceMethodAccessException e) {
             e.printStackTrace();
         }
     }
