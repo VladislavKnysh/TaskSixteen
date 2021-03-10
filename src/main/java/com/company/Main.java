@@ -19,7 +19,7 @@ public class Main {
 
 
     public static ContactsService setContactService() {
-        ProjectStarter pm = new ProjectStarter(ContactsServiceFactory.FactoryType.PROP);
+        ProjectStarter pm = new ProjectStarter(ContactsServiceFactory.FactoryType.DATABASE);
         return pm.startProject();
     }
 

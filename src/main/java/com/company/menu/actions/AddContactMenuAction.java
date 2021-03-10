@@ -6,7 +6,7 @@ import com.company.service.ContactsService;
 import java.util.Scanner;
 
 public class AddContactMenuAction implements MenuActions {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public void doAction(ContactsService contactsService) {
         String name = askForName();

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 
 import java.util.Scanner;
+
 @RequiredArgsConstructor
 public class ReadAllUsersMenuActions implements MenuActions {
     private Scanner scanner = new Scanner(System.in);
@@ -42,6 +43,8 @@ public class ReadAllUsersMenuActions implements MenuActions {
 
     @Override
     public boolean isVisible(ContactsService contactsService) {
-        return contactsService.getServiceType().equals(ContactsService.ServiceType.HTTP_PLUS_JSON);
+        if (contactsService.getServiceType().equals(ContactsService.ServiceType.HTTP_PLUS_JSON)) {
+            return true;
+        } else return contactsService.getServiceType().equals(ContactsService.ServiceType.DATABASE);
     }
 }

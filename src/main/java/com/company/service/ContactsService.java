@@ -30,6 +30,7 @@ public interface ContactsService {
     enum ServiceType {
         IN_MEMORY,
         NIO,
-        HTTP_PLUS_JSON
+        HTTP_PLUS_JSON,
+        DATABASE
     }
 }

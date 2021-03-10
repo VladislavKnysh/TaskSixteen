@@ -32,7 +32,9 @@ public class LogOutMenuAction implements MenuActions {
 
     @Override
     public boolean isVisible(ContactsService contactsService) {
-        return (contactsService.getServiceType().equals(ContactsService.ServiceType.HTTP_PLUS_JSON));
+        if (contactsService.getServiceType().equals(ContactsService.ServiceType.HTTP_PLUS_JSON)) {
+            return true;
+        } else return contactsService.getServiceType().equals(ContactsService.ServiceType.DATABASE);
     }
 }
 

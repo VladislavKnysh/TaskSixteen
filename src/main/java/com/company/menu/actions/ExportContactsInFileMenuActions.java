@@ -41,6 +41,8 @@ public class ExportContactsInFileMenuActions implements MenuActions, Visible {
 
     @Override
     public boolean isVisible(ContactsService contactsService) {
-        return !contactsService.getServiceType().equals(ContactsService.ServiceType.HTTP_PLUS_JSON);
+        if (contactsService.getServiceType().equals(ContactsService.ServiceType.HTTP_PLUS_JSON)) {
+            return false;
+        } else return !contactsService.getServiceType().equals(ContactsService.ServiceType.DATABASE);
     }
 }
