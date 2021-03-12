@@ -22,6 +22,4 @@ public class Main {
         ProjectStarter pm = new ProjectStarter(ContactsServiceFactory.FactoryType.DATABASE);
         return pm.startProject();
     }
-
-
 }
